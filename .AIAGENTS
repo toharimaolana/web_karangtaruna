@@ -1,0 +1,292 @@
+# .AIAGENTS
+# Project Guidance — Karang Taruna Digital RW 005
+
+## Project Overview
+Karang Taruna Digital RW 005 adalah website profile organisasi berbasis web yang dibuat untuk membantu digitalisasi informasi dan dokumentasi kegiatan Karang Taruna RW 005, Kelurahan Mangga Besar, Jakarta Barat.
+
+Project ini berfokus pada:
+- media informasi organisasi,
+- dokumentasi kegiatan,
+- branding komunitas,
+- dan pengelolaan konten internal sederhana.
+
+Project dibuat untuk kebutuhan:
+- implementasi nyata komunitas,
+- portfolio,
+- dan pengajuan HAKI.
+
+---
+
+# Core Objective
+
+Tujuan utama project:
+- membuat website profile organisasi yang modern,
+- mudah digunakan,
+- mobile friendly,
+- dan dapat dikelola pengurus secara internal.
+
+Project ini BUKAN sistem kompleks seperti:
+- ERP,
+- aplikasi pemerintahan,
+- sistem keuangan,
+- atau social media platform.
+
+Fokus utama:
+simplicity, usability, clean UI, dan maintainability.
+
+---
+
+# Tech Stack
+
+Frontend:
+- React
+- TailwindCSS
+
+Backend:
+- Supabase
+
+Services:
+- Supabase Auth
+- Supabase Database
+- Supabase Storage
+
+Deployment:
+- Vercel / Netlify
+
+---
+
+# Design Direction
+
+Gunakan design:
+- modern clean,
+- minimalis,
+- professional community,
+- soft blue aesthetic,
+- responsive mobile-first,
+- readable typography,
+- simple interaction.
+
+Hindari:
+- over-animation,
+- glassmorphism berlebihan,
+- UI terlalu gaming/futuristic,
+- terlalu banyak warna,
+- complex enterprise layout.
+
+Target visual:
+modern youth organization website.
+
+---
+
+# MVP Scope
+
+## Public Website
+Pages:
+- Home
+- Tentang
+- Struktur Organisasi
+- Kegiatan
+- Galeri
+- Kontak
+
+---
+
+## Admin Dashboard
+Features:
+- Login Admin
+- Kelola Profil Organisasi
+- Kelola Pengurus
+- Kelola Kegiatan
+
+---
+
+# Functional Requirements
+
+## 1. Authentication
+Admin dapat login menggunakan Supabase Auth.
+
+Tidak perlu:
+- multi-role,
+- register publik,
+- forgot password kompleks.
+
+---
+
+## 2. Organization Profile
+Admin dapat mengelola:
+- sejarah organisasi,
+- visi misi,
+- deskripsi singkat,
+- alamat,
+- kontak.
+
+---
+
+## 3. Management Pengurus
+Admin dapat:
+- tambah pengurus,
+- edit pengurus,
+- hapus pengurus,
+- upload foto pengurus.
+
+Data minimal:
+- nama,
+- jabatan,
+- foto.
+
+---
+
+## 4. Kegiatan / Berita
+Admin dapat:
+- tambah kegiatan,
+- edit kegiatan,
+- hapus kegiatan,
+- upload dokumentasi.
+
+Data minimal:
+- judul,
+- deskripsi,
+- tanggal,
+- foto.
+
+---
+
+# Database Structure
+
+## organization_profile
+- id
+- about
+- vision
+- mission
+- address
+- contact
+
+## members
+- id
+- name
+- position
+- photo_url
+
+## activities
+- id
+- title
+- description
+- activity_date
+- image_url
+- created_at
+
+---
+
+# Non Goals (Out of Scope)
+
+JANGAN implementasikan:
+- realtime chat,
+- forum,
+- keuangan,
+- absensi,
+- AI chatbot,
+- notification system,
+- complex analytics,
+- event booking,
+- marketplace,
+- role permission management.
+
+Project harus tetap ringan dan fokus pada profile organization system.
+
+---
+
+# UI Principles
+
+Setiap halaman harus:
+- responsive,
+- clean spacing,
+- consistent typography,
+- accessible,
+- mudah dipahami warga umum.
+
+Prioritaskan:
+- visual hierarchy,
+- readability,
+- mobile usability.
+
+---
+
+# Coding Principles
+
+Gunakan:
+- reusable components,
+- clean folder structure,
+- modular architecture,
+- readable naming convention.
+
+Hindari:
+- hardcoded data berlebihan,
+- giant component,
+- inline styling berlebihan,
+- duplicated code.
+
+---
+
+# Folder Structure Recommendation
+
+src/
+├── components/
+├── pages/
+├── layouts/
+├── services/
+├── hooks/
+├── utils/
+├── assets/
+├── supabase/
+└── routes/
+
+---
+
+# Dashboard Focus
+
+Dashboard hanya untuk internal pengurus.
+
+Fokus:
+- content management sederhana.
+
+Dashboard bukan admin enterprise system.
+
+---
+
+# Project Keywords
+
+Karang Taruna
+Community Website
+Digital Organization Profile
+Youth Organization
+Modern Clean UI
+Internal Dashboard
+React
+Supabase
+TailwindCSS
+
+---
+
+# Recommended Enhancements (Saran Tambahan)
+
+1. **Kompresi Gambar di Sisi Klien (Client-Side Image Compression)**
+   - Menggunakan library kompresi gambar (seperti `browser-image-compression`) sebelum diunggah ke Supabase Storage. Hal ini menghemat penyimpanan dan memastikan load time cepat untuk pengguna mobile.
+
+2. **Integrasi Peta & Kontak Cepat (Local Integration)**
+   - Menyematkan peta lokasi RW 005 (OpenStreetMap / Google Maps) pada halaman Kontak.
+   - Menyediakan tombol quick action "Hubungi via WhatsApp" dan tombol "Bagikan ke Media Sosial" untuk mempermudah penyebaran informasi kegiatan.
+
+3. **Optimisasi SEO & PWA (Progressive Web App)**
+   - Penerapan meta tag dinamis (menggunakan `react-helmet-async` atau sejenisnya) untuk preview link kegiatan yang informatif saat dibagikan.
+   - PWA sederhana (file `manifest.json`) agar website dapat diinstal di smartphone warga layaknya aplikasi native.
+
+---
+
+# Final Goal
+
+Membangun website profile Karang Taruna yang:
+- modern,
+- informatif,
+- usable,
+- responsive,
+- dan dapat benar-benar digunakan oleh organisasi secara nyata.

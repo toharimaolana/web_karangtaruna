@@ -1,0 +1,60 @@
+# .getdesign
+# Design Guideline — Karang Taruna Digital RW 005
+
+## Design Direction
+Vibe website:
+- fun
+- modern
+- clean
+- youth community
+- energetic but still professional
+- mobile friendly
+
+Website ini bukan portal kelurahan yang kaku.  
+Website harus terasa seperti organisasi pemuda yang aktif, fresh, dan mudah diakses warga.
+
+---
+
+## Typography
+
+Gunakan font:
+- Heading: Syne
+- Body: Inter
+
+Heading harus bold, besar, dan punya karakter kuat.
+
+Hierarchy:
+- Hero Title: Syne ExtraBold / Bold
+- Section Title: Syne Bold
+- Card Title: Syne SemiBold
+- Body Text: Inter Regular
+- Caption: Inter Regular / Medium
+
+Jangan membuat semua teks bold.  
+Bold hanya untuk judul, highlight, dan emphasis.
+
+---
+
+## Color Palette
+
+```css
+@theme {
+  --font-syne: "Syne", sans-serif;
+  --font-inter: "Inter", sans-serif;
+
+  --color-royal-blue: #4169E1;
+  --color-brand-blue: #2563EB;
+  --color-brand-red: #EF4444;
+  --color-brand-yellow: #F59E0B;
+  --color-white: #FFFFFF;
+  --color-slate-50: #F8FAFC;
+  --color-slate-100: #F1F5F9;
+  --color-slate-200: #E2E8F0;
+  --color-slate-300: #CBD5E1;
+  --color-slate-400: #94A3B8;
+  --color-slate-500: #64748B;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1E293B;
+  --color-slate-900: #0F172A;
+}

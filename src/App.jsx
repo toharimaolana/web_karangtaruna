@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 import Lenis from 'lenis';
 import Navigation from './components/Navigation';
 import Hero from './components/Hero';
+import SloganMarquee from './components/SloganMarquee';
 import VisiMisi from './components/VisiMisi';
 import StrukturOrganisasi from './components/StrukturOrganisasi';
 import ProgramKerjaGallery from './components/ProgramKerjaGallery';
 import PetaWilayah from './components/PetaWilayah';
-import FAQ from './components/FAQ';
 import Footer from './components/Footer';
 
 function App() {
@@ -38,11 +38,11 @@ function App() {
       <Navigation />
       <main>
         <Hero />
+        <SloganMarquee />
         <VisiMisi />
         <StrukturOrganisasi />
         <ProgramKerjaGallery />
         <PetaWilayah />
-        <FAQ />
       </main>
       <Footer />
     </div>
