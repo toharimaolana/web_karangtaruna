@@ -1,51 +1,14 @@
-import { useEffect } from 'react';
-import Lenis from 'lenis';
-import Navigation from './components/Navigation';
-import Hero from './components/Hero';
-import SloganMarquee from './components/SloganMarquee';
-import VisiMisi from './components/VisiMisi';
-import StrukturOrganisasi from './components/StrukturOrganisasi';
-import ProgramKerjaGallery from './components/ProgramKerjaGallery';
-import PetaWilayah from './components/PetaWilayah';
-import Footer from './components/Footer';
+import { BrowserRouter } from 'react-router-dom';
+import MainLayout from './layouts/MainLayout';
+import AppRoutes from './routes';
 
 function App() {
-  useEffect(() => {
-    const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      orientation: 'vertical',
-      gestureOrientation: 'vertical',
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    return () => {
-      lenis.destroy();
-    };
-  }, []);
-
   return (
-    <div className="min-h-screen bg-white">
-      <Navigation />
-      <main>
-        <Hero />
-        <SloganMarquee />
-        <VisiMisi />
-        <StrukturOrganisasi />
-        <ProgramKerjaGallery />
-        <PetaWilayah />
-      </main>
-      <Footer />
-    </div>
+    <BrowserRouter>
+      <MainLayout>
+        <AppRoutes />
+      </MainLayout>
+    </BrowserRouter>
   );
 }
 

@@ -2,83 +2,9 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { X, ChevronLeft, ChevronRight, Maximize2, Calendar, Award } from "lucide-react";
-
-const programs = [
-  {
-    title: "Pelatihan Kewirausahaan",
-    category: "Ekonomi",
-    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=600&fit=crop",
-    description: "Program pelatihan keterampilan entrepreneurship untuk kemandirian finansial generasi muda.",
-    date: "12 Mar 2026"
-  },
-  {
-    title: "Bakti Sosial & Medis",
-    category: "Sosial",
-    image: "https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=800&h=600&fit=crop",
-    description: "Aksi pengabdian masyarakat guna membantu cek kesehatan gratis dan santunan sembako.",
-    date: "05 Apr 2026"
-  },
-  {
-    title: "Workshop Digital Kreatif",
-    category: "Pendidikan",
-    image: "https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&h=600&fit=crop",
-    description: "Pelatihan keterampilan teknologi digital dan pembuatan konten kreatif bagi remaja.",
-    date: "18 Mei 2026"
-  },
-  {
-    title: "Turnamen Olahraga RW",
-    category: "Olahraga",
-    image: "https://images.unsplash.com/photo-1461896836934-voices-of-the-game?w=800&h=600&fit=crop",
-    description: "Turnamen futsal dan bulu tangkis antar warga untuk memupuk solidaritas dan kebugaran.",
-    date: "20 Jun 2026"
-  },
-  {
-    title: "Festival Seni & Budaya",
-    category: "Budaya",
-    image: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=800&h=600&fit=crop",
-    description: "Pameran karya seni, pentas musik tradisional, dan kuliner lokal khas pemuda.",
-    date: "17 Agu 2026"
-  },
-];
-
-const galleryImages = [
-  {
-    src: "https://images.unsplash.com/photo-1523580494863-6f3031224c94?w=1000&h=750&fit=crop",
-    title: "Rapat Kerja Tahunan Bestfive",
-    category: "Rapat",
-    desc: "Perumusan program kerja inovatif bersama seluruh pengurus inti dan dewan penasihat."
-  },
-  {
-    src: "https://images.unsplash.com/photo-1511795409834-432f7b1728d2?w=1000&h=750&fit=crop",
-    title: "Kolaborasi Bakti Sosial Warga",
-    category: "Sosial",
-    desc: "Penyaluran bantuan sembako dan gotong royong merapikan pos RW 005."
-  },
-  {
-    src: "https://images.unsplash.com/photo-1501281668745-f7f57925c3b4?w=1000&h=750&fit=crop",
-    title: "Karnaval Kemerdekaan RI",
-    category: "Sosial",
-    desc: "Aksi pawai obor dan kostum daur ulang kreatif garapan pemuda Bestfive."
-  },
-  {
-    src: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=1000&h=750&fit=crop",
-    title: "Malam Panggung Gembira",
-    category: "Sosial",
-    desc: "Puncak perayaan HUT RI dengan penampilan band lokal dan pembagian piala lomba."
-  },
-  {
-    src: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1000&h=750&fit=crop",
-    title: "Workshop Content Marketing",
-    category: "Edukasi",
-    desc: "Kelas interaktif membedah taktik digital branding bagi usaha mikro warga setempat."
-  },
-  {
-    src: "https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=1000&h=750&fit=crop",
-    title: "Final Lomba Futsal RW Cup",
-    category: "Olahraga",
-    desc: "Ketegangan babak final futsal yang mempertemukan RT 03 dan RT 05."
-  }
-];
+import { Link } from "react-router-dom";
+import { getActivities } from "../services/activityService";
+import { getGalleryItems } from "../services/galleryService";
 
 const categories = ["Semua", "Sosial", "Edukasi", "Olahraga", "Rapat"];
 
@@ -88,6 +14,8 @@ function ProgramCard({ program, index }) {
       case "Ekonomi": return "bg-brand-yellow/10 text-brand-yellow border-brand-yellow/20";
       case "Sosial": return "bg-brand-red/10 text-brand-red border-brand-red/20";
       case "Pendidikan": return "bg-brand-blue/10 text-brand-blue border-brand-blue/20";
+      case "Olahraga": return "bg-brand-yellow/10 text-brand-yellow border-brand-yellow/20";
+      case "Budaya": return "bg-brand-red/10 text-brand-red border-brand-red/20";
       default: return "bg-slate-100 text-slate-700 border-slate-200";
     }
   };
@@ -100,7 +28,10 @@ function ProgramCard({ program, index }) {
       transition={{ delay: index * 0.1, duration: 0.6 }}
       className="flex-shrink-0 w-[300px] sm:w-[360px]"
     >
-      <div className="relative group overflow-hidden rounded-[2.5rem] bg-white border border-slate-100 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.06)] hover:border-slate-200 transition-all duration-300">
+      <Link
+        to={`/kegiatan/${program.id}`}
+        className="relative block group overflow-hidden rounded-[2.5rem] bg-white border border-slate-100 p-4 shadow-[0_12px_35px_rgba(0,0,0,0.02)] hover:shadow-[0_20px_50px_rgba(37,99,235,0.06)] hover:border-slate-200 transition-all duration-300 cursor-pointer"
+      >
 
         {/* Photo Container with Hover Zoom */}
         <div className="relative h-56 rounded-[1.8rem] overflow-hidden bg-slate-50">
@@ -143,12 +74,17 @@ function ProgramCard({ program, index }) {
           transition={{ duration: 0.4 }}
           className="absolute bottom-0 left-6 right-6 h-1 bg-brand-blue origin-left rounded-full"
         />
-      </div>
+      </Link>
     </motion.div>
   );
 }
 
+
 export default function ProgramKerjaGallery() {
+  const [programs, setPrograms] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [galleryItems, setGalleryItems] = useState([]);
+  const [galleryLoading, setGalleryLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("Semua");
   const [selectedIdx, setSelectedIdx] = useState(null);
 
@@ -160,10 +96,30 @@ export default function ProgramKerjaGallery() {
 
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-40%"]);
 
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      const actData = await getActivities();
+      if (isMounted) {
+        setPrograms(actData);
+        setLoading(false);
+      }
+
+      const gallData = await getGalleryItems();
+      if (isMounted) {
+        setGalleryItems(gallData);
+        setGalleryLoading(false);
+      }
+    }
+    load();
+    return () => { isMounted = false; };
+  }, []);
+
+
   // Filter Gallery Images based on category
   const filteredGallery = activeCategory === "Semua"
-    ? galleryImages
-    : galleryImages.filter(img => img.category === activeCategory);
+    ? galleryItems
+    : galleryItems.filter(img => img.category === activeCategory);
 
   // Close Lightbox on Escape Key Press
   useEffect(() => {
@@ -216,20 +172,35 @@ export default function ProgramKerjaGallery() {
 
         {/* Horizontal Infinite/Scrolling Track */}
         <div className="relative overflow-hidden pb-8 cursor-grab active:cursor-grabbing">
-          <motion.div style={{ x }} className="flex gap-6 w-max">
-            {programs.map((program, i) => (
-              <ProgramCard key={program.title} program={program} index={i} />
-            ))}
-            {/* Duplicated for infinite effect */}
-            {programs.map((program, i) => (
-              <ProgramCard key={`${program.title}-dup-${i}`} program={program} index={i} />
-            ))}
-          </motion.div>
+          {loading ? (
+            <div className="flex gap-6 w-max justify-center py-6">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="w-[300px] sm:w-[360px] h-[400px] bg-white border border-slate-100 rounded-[2.5rem] p-4 flex flex-col gap-4 animate-pulse shadow-[0_12px_35px_rgba(0,0,0,0.01)]">
+                  <div className="h-52 rounded-[1.8rem] bg-slate-100" />
+                  <div className="flex flex-col gap-2 p-2">
+                    <div className="h-4 w-1/4 bg-slate-100 rounded-full" />
+                    <div className="h-6 w-3/4 bg-slate-100 rounded-full mt-2" />
+                    <div className="h-4 w-5/6 bg-slate-100 rounded-full mt-1" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <motion.div style={{ x }} className="flex gap-6 w-max">
+              {programs.map((program, i) => (
+                <ProgramCard key={program.id} program={program} index={i} />
+              ))}
+              {/* Duplicated for infinite effect */}
+              {programs.map((program, i) => (
+                <ProgramCard key={`${program.id}-dup-${i}`} program={program} index={i} />
+              ))}
+            </motion.div>
+          )}
         </div>
 
         {/* Track Indicators */}
         <div className="flex justify-center gap-2 mt-4">
-          {programs.map((_, i) => (
+          {!loading && programs.map((_, i) => (
             <motion.div
               key={i}
               className="w-2.5 h-2.5 rounded-full bg-slate-200"
@@ -283,75 +254,91 @@ export default function ProgramKerjaGallery() {
           </div>
 
           {/* Grid Layout of Gallery Cards */}
-          <motion.div
-            layout
-            className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
-          >
-            <AnimatePresence mode="popLayout">
-              {filteredGallery.map((img, i) => (
-                <motion.div
-                  key={img.title}
-                  layout
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  viewport={{ once: true }}
-                  transition={{ type: "spring", stiffness: 260, damping: 22 }}
-                  whileHover={{ y: -6 }}
-                  onClick={() => setSelectedIdx(i)}
-                  className="group relative rounded-[2.2rem] overflow-hidden border border-slate-100 p-3 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.015)] hover:border-brand-red/10 hover:shadow-[0_20px_45px_rgba(239,68,68,0.05)] transition-all duration-300 cursor-pointer"
-                >
-                  <div className="relative aspect-[4/3] rounded-[1.6rem] overflow-hidden bg-slate-50">
-                    {/* Zoomable Image */}
-                    <img
-                      src={img.src}
-                      alt={img.title}
-                      className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                      loading="lazy"
-                    />
-
-                    {/* Gradient Vignette overlay on default */}
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent opacity-90 group-hover:opacity-100 transition-opacity z-10" />
-
-                    {/* Expand/Maximize Button overlay */}
-                    <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 backdrop-blur-[2px] transition-all duration-300 z-20 flex items-center justify-center">
-                      <motion.div
-                        whileHover={{ scale: 1.1 }}
-                        whileTap={{ scale: 0.9 }}
-                        className="w-12 h-12 rounded-full bg-white text-slate-800 flex items-center justify-center shadow-lg"
-                      >
-                        <Maximize2 className="w-5 h-5 text-brand-red" />
-                      </motion.div>
-                    </div>
-
-                    {/* Floating category Tag */}
-                    <div className="absolute top-4 left-4 z-25">
-                      <span className="inline-flex rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1 text-[9px] font-black text-brand-red border border-brand-red/10 tracking-widest uppercase">
-                        {img.category}
-                      </span>
-                    </div>
+          {galleryLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="rounded-[2.2rem] border border-slate-100 p-3 bg-white animate-pulse shadow-[0_10px_30px_rgba(0,0,0,0.015)]">
+                  <div className="aspect-[4/3] rounded-[1.6rem] bg-slate-100" />
+                  <div className="p-4 flex flex-col gap-2">
+                    <div className="h-5 w-3/4 bg-slate-100 rounded-full" />
+                    <div className="h-4 w-1/2 bg-slate-100 rounded-full mt-1" />
                   </div>
-
-                  {/* Card Bottom Text Info */}
-                  <div className="p-4">
-                    <h4 className="text-base font-black text-slate-800 tracking-tight font-syne leading-snug group-hover:text-brand-red transition-colors mb-1">
-                      {img.title}
-                    </h4>
-                    <p className="text-slate-400 text-xs line-clamp-1">
-                      {img.desc}
-                    </p>
-                  </div>
-                </motion.div>
+                </div>
               ))}
-            </AnimatePresence>
-          </motion.div>
-
-          {/* Empty state if no images */}
-          {filteredGallery.length === 0 && (
-            <div className="text-center py-16">
-              <span className="text-4xl mb-3 block">📂</span>
-              <p className="text-slate-400 font-bold font-syne">Belum ada dokumentasi untuk kategori ini.</p>
             </div>
+          ) : (
+            <>
+              <motion.div
+                layout
+                className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6"
+              >
+                <AnimatePresence mode="popLayout">
+                  {filteredGallery.map((img, i) => (
+                    <motion.div
+                      key={img.id || img.title}
+                      layout
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      whileInView={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.9 }}
+                      viewport={{ once: true }}
+                      transition={{ type: "spring", stiffness: 260, damping: 22 }}
+                      whileHover={{ y: -6 }}
+                      onClick={() => setSelectedIdx(i)}
+                      className="group relative rounded-[2.2rem] overflow-hidden border border-slate-100 p-3 bg-white shadow-[0_10px_30px_rgba(0,0,0,0.015)] hover:border-brand-blue/10 hover:shadow-[0_20px_45px_rgba(37,99,235,0.05)] transition-all duration-300 cursor-pointer"
+                    >
+                      <div className="relative aspect-[4/3] rounded-[1.6rem] overflow-hidden bg-slate-50">
+                        {/* Zoomable Image */}
+                        <img
+                          src={img.src}
+                          alt={img.title}
+                          className="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+                          loading="lazy"
+                        />
+
+                        {/* Gradient Vignette overlay on default */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-slate-950/10 to-transparent opacity-90 group-hover:opacity-100 transition-opacity z-10" />
+
+                        {/* Expand/Maximize Button overlay */}
+                        <div className="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 backdrop-blur-[2px] transition-all duration-300 z-20 flex items-center justify-center">
+                          <motion.div
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className="w-12 h-12 rounded-full bg-white text-slate-800 flex items-center justify-center shadow-lg"
+                          >
+                            <Maximize2 className="w-5 h-5 text-brand-blue" />
+                          </motion.div>
+                        </div>
+
+                        {/* Floating category Tag */}
+                        <div className="absolute top-4 left-4 z-25">
+                          <span className="inline-flex rounded-full bg-white/95 backdrop-blur-md px-3.5 py-1 text-[9px] font-black text-brand-blue border border-brand-blue/10 tracking-widest uppercase">
+                            {img.category}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Card Bottom Text Info */}
+                      <div className="p-4">
+                        <h4 className="text-base font-black text-slate-800 tracking-tight font-syne leading-snug group-hover:text-brand-blue transition-colors mb-1">
+                          {img.title}
+                        </h4>
+                        <p className="text-slate-400 text-xs line-clamp-1">
+                          {img.desc}
+                        </p>
+                      </div>
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </motion.div>
+
+              {/* Empty state if no images */}
+              {filteredGallery.length === 0 && (
+                <div className="text-center py-16">
+                  <span className="text-4xl mb-3 block">📂</span>
+                  <p className="text-slate-400 font-bold font-syne">Belum ada dokumentasi untuk kategori ini.</p>
+                </div>
+              )}
+            </>
           )}
 
         </div>
@@ -420,7 +407,7 @@ export default function ProgramKerjaGallery() {
 
                 {/* Floating category Tag on modal image */}
                 <div className="absolute top-4 left-4 z-20">
-                  <span className="inline-flex rounded-full bg-brand-red text-white px-4 py-1.5 text-xs font-black tracking-wider uppercase">
+                  <span className="inline-flex rounded-full bg-brand-blue text-white px-4 py-1.5 text-xs font-black tracking-wider uppercase">
                     {filteredGallery[selectedIdx].category}
                   </span>
                 </div>

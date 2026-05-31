@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, Quote, Shield, User, Heart } from "lucide-react";
+import { getMembers } from "../services/memberService";
 
 function Instagram({ className = "w-4 h-4" }) {
   return (
@@ -12,137 +13,7 @@ function Instagram({ className = "w-4 h-4" }) {
   );
 }
 
-const teamMembers = [
-  {
-    name: "Aapis Hidayat",
-    position: "Ketua Umum",
-    image: "/images/aapis.jpg",
-    instagram: "https://instagram.com/aapis_hid",
-    roleGroup: "bph",
-    superpower: "🚀 Visi Misi Master",
-    funQuote: "Pemuda hari ini, pemimpin hari esok!",
-    highlight: true,
-  },
-  {
-    name: "Adau",
-    position: "Wakil Ketua",
-    image: "/images/adau.jpg",
-    instagram: "https://instagram.com/adau_log",
-    roleGroup: "bph",
-    superpower: "⚡ Troubleshooter Ulung",
-    funQuote: "Santai tapi selesai, tenang tapi menang.",
-    highlight: true,
-  },
-  {
-    name: "Anis Fitri",
-    position: "Bendahara",
-    image: "/images/anis.jpg",
-    instagram: "https://instagram.com/anis_ftr",
-    roleGroup: "bph",
-    superpower: "💰 Kolektor Kas Legendaris",
-    funQuote: "Jangan lupa bayar kas sebelum saya tagih! 😉",
-    highlight: true,
-  },
-  {
-    name: "M. Zidan",
-    position: "Anggota Aktif",
-    image: "/images/zidan.jpg",
-    instagram: "https://instagram.com/zidan_karta",
-    roleGroup: "anggota",
-    superpower: "🧠 Konseptor Kreatif",
-    funQuote: "Ide tanpa eksekusi adalah halusinasi.",
-  },
-  {
-    name: "Rima Melati",
-    position: "Anggota Aktif",
-    image: "/images/rima.jpg",
-    instagram: "https://instagram.com/rimamelati",
-    roleGroup: "anggota",
-    superpower: "🌟 Public Relations",
-    funQuote: "Menghubungkan hati dan aspirasi warga.",
-  },
-  {
-    name: "Fani Rahma",
-    position: "Anggota Aktif",
-    image: "/images/fani.jpg",
-    instagram: "https://instagram.com/fanirh",
-    roleGroup: "anggota",
-    superpower: "📊 Ratu Excel & Notulensi",
-    funQuote: "Hidup itu seperti proposal, butuh persetujuan.",
-  },
-  {
-    name: "Karin Amelia",
-    position: "Anggota Aktif",
-    image: "/images/karin.jpg",
-    instagram: "https://instagram.com/karin_amel",
-    roleGroup: "anggota",
-    superpower: "📂 Admin Terorganisir",
-    funQuote: "Dokumen rapi, hidup terkendali.",
-  },
-  {
-    name: "Egi Pratama",
-    position: "Anggota Aktif",
-    image: "/images/egi.jpg",
-    instagram: "https://instagram.com/egi_prt",
-    roleGroup: "anggota",
-    superpower: "🔍 Auditor Sat-Set",
-    funQuote: "Uang keluar harus ada kuitansinya ya!",
-  },
-  {
-    name: "Reza Fahlevi",
-    position: "Anggota Aktif",
-    image: "/images/reza.jpg",
-    instagram: "https://instagram.com/reza_fhlv",
-    roleGroup: "anggota",
-    superpower: "🗣️ Juru Bicara Humas",
-    funQuote: "Ada kopi ada solusi.",
-  },
-  {
-    name: "Dika Pratama",
-    position: "Anggota Aktif",
-    image: "/images/dika.jpg",
-    instagram: "https://instagram.com/dika_art",
-    roleGroup: "anggota",
-    superpower: "🎭 Raja Gigs & Dekorasi",
-    funQuote: "Tanpa seni, hidup ini bagai malam tanpa bintang.",
-  },
-  {
-    name: "Ameh",
-    position: "Anggota Aktif",
-    image: "/images/ameh.jpg",
-    instagram: "https://instagram.com/ameh_art",
-    roleGroup: "anggota",
-    superpower: "📹 Kreator Konten Viral",
-    funQuote: "Seni itu mengekspresikan kebebasan!",
-  },
-  {
-    name: "Sandi Wijaya",
-    position: "Anggota Aktif",
-    image: "/images/sandi.jpg",
-    instagram: "https://instagram.com/sandi_wj",
-    roleGroup: "anggota",
-    superpower: "⚽ Raja Smash & Stamina",
-    funQuote: "Di dalam tubuh yang sehat terdapat jiwa yang santai.",
-  },
-  {
-    name: "Ibra",
-    position: "Anggota Aktif",
-    image: "/images/ibra.jpg",
-    instagram: "https://instagram.com/ibra_rel",
-    roleGroup: "anggota",
-    superpower: "🕌 Kultum Penyejuk Jiwa",
-    funQuote: "Dunia dikejar, akhirat jangan dilupakan.",
-  },
-  {
-    name: "Sito Kusuma",
-    position: "Anggota Aktif",
-    image: "/images/sito.jpg",
-    instagram: "https://instagram.com/sito_ksm",
-    roleGroup: "anggota",
-    superpower: "📦 Perlengkapan Ready",
-    funQuote: "Barang aman, acara lancar, panitia tenang.",
-  },
-];
+
 
 const categoryTabs = [
   { id: "semua", label: "Semua Pengurus" },
@@ -151,7 +22,7 @@ const categoryTabs = [
 ];
 
 function MemberCard({ member, index }) {
-  const isBPH = member.roleGroup === "bph";
+  const isBPH = member.roleGroup === "bph" && (member.highlight === true || member.highlight === "true");
   const randomRotation = index % 2 === 0 ? 1 : -1;
 
   const getPositionBadgeStyle = (pos) => {
@@ -265,11 +136,62 @@ function MemberCard({ member, index }) {
 }
 
 export default function StrukturOrganisasi() {
+  const [members, setMembers] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [activeTab, setActiveTab] = useState("semua");
 
-  // Split members for visual tree/hierarchy
-  const bphMembers = teamMembers.filter((m) => m.roleGroup === "bph");
-  const activeMembers = teamMembers.filter((m) => m.roleGroup === "anggota");
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      const data = await getMembers();
+      console.log('[StrukturOrganisasi] Loaded members for rendering:', data);
+      if (isMounted) {
+        setMembers(data);
+        setLoading(false);
+      }
+    }
+    load();
+    return () => { isMounted = false; };
+  }, []);
+
+  // Split members for visual tree/hierarchy based on highlight flag (handles string and boolean, case-insensitive)
+  const bphMembers = members.filter((m) => {
+    const isBPH = m && m.roleGroup && String(m.roleGroup).toLowerCase().trim() === "bph";
+    const isHighlighted = m && (m.highlight === true || String(m.highlight).toLowerCase().trim() === "true" || m.highlight === 1 || String(m.highlight).trim() === "1");
+    return isBPH && isHighlighted;
+  });
+
+  const activeMembers = members.filter((m) => {
+    const isAnggota = m && m.roleGroup && String(m.roleGroup).toLowerCase().trim() === "anggota";
+    const isBPH = m && m.roleGroup && String(m.roleGroup).toLowerCase().trim() === "bph";
+    const isHighlighted = m && (m.highlight === true || String(m.highlight).toLowerCase().trim() === "true" || m.highlight === 1 || String(m.highlight).trim() === "1");
+    return isAnggota || (isBPH && !isHighlighted);
+  });
+
+  // Sort BPH members based on a clear hierarchy priority (Ketua Umum is always at the top)
+  const getBphPriority = (position) => {
+    if (!position) return 99;
+    const pos = String(position).toLowerCase().trim();
+    if (pos.includes("ketua umum") || pos.includes("ketua/")) return 1;
+    if (pos.includes("wakil ketua") || pos.includes("wakil")) return 2;
+    if (pos.includes("sekretaris")) return 3;
+    if (pos.includes("bendahara")) return 4;
+    return 5;
+  };
+
+  const sortedBphMembers = [...bphMembers].sort((a, b) => getBphPriority(a.position) - getBphPriority(b.position));
+  const sortedActiveMembers = [...activeMembers].sort((a, b) => a.name.localeCompare(b.name));
+
+  if (loading) {
+    return (
+      <section id="struktur" className="relative overflow-hidden bg-slate-50 py-24 md:py-32 flex flex-col items-center justify-center min-h-[50vh]">
+        <div className="w-12 h-12 border-4 border-slate-200 border-t-brand-blue rounded-full animate-spin mb-4" />
+        <p className="text-slate-400 text-xs font-black tracking-widest uppercase animate-pulse font-syne">
+          Menyelaraskan Struktur Organisasi...
+        </p>
+      </section>
+    );
+  }
 
   return (
     <section
@@ -378,7 +300,7 @@ export default function StrukturOrganisasi() {
                 <div className="flex flex-col items-center justify-center gap-8 md:gap-12">
                   {/* Leader Row */}
                   <div className="w-full max-w-sm flex justify-center">
-                    {bphMembers.slice(0, 1).map((member, idx) => (
+                    {sortedBphMembers.slice(0, 1).map((member, idx) => (
                       <div key={member.name} className="w-full">
                         <MemberCard member={member} index={idx} />
                       </div>
@@ -397,7 +319,7 @@ export default function StrukturOrganisasi() {
 
                   {/* Flank Rows (Wakil Ketua & Bendahara) */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 md:gap-8 w-full max-w-2xl">
-                    {bphMembers.slice(1).map((member, idx) => (
+                    {sortedBphMembers.slice(1).map((member, idx) => (
                       <MemberCard key={member.name} member={member} index={idx + 1} />
                     ))}
                   </div>
@@ -427,7 +349,7 @@ export default function StrukturOrganisasi() {
 
                 {/* Grid for Active Members */}
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-                  {activeMembers.map((member, index) => (
+                  {sortedActiveMembers.map((member, index) => (
                     <MemberCard key={member.name} member={member} index={index} />
                   ))}
                 </div>

@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Mail, MapPin, Phone, MessageSquare, ExternalLink } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 function InstagramIcon({ className = "w-5 h-5" }) {
   return (
@@ -11,27 +12,18 @@ function InstagramIcon({ className = "w-5 h-5" }) {
   );
 }
 
-function TwitterIcon({ className = "w-5 h-5" }) {
+function TiktokIcon({ className = "w-5 h-5" }) {
   return (
     <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z" />
+      <path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5" />
     </svg>
   );
 }
 
-function YouTubeIcon({ className = "w-5 h-5" }) {
-  return (
-    <svg className={className} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33 2.78 2.78 0 0 0 1.94 2C5.12 19.5 12 19.5 12 19.5s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
-      <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" />
-    </svg>
-  );
-}
 
 const socialLinks = [
-  { icon: InstagramIcon, href: 'https://instagram.com', label: 'Instagram' },
-  { icon: TwitterIcon, href: 'https://twitter.com', label: 'Twitter' },
-  { icon: YouTubeIcon, href: 'https://youtube.com', label: 'YouTube' },
+  { icon: InstagramIcon, href: 'https://www.instagram.com/kartabestfive_', label: 'Instagram' },
+  { icon: TiktokIcon, href: 'https://www.tiktok.com/@kartabestfive_', label: 'Tiktok' },
 ];
 
 export default function Footer() {
@@ -91,16 +83,27 @@ export default function Footer() {
                 { name: 'Visi Misi', href: '#visi-misi' },
                 { name: 'Struktur Organisasi', href: '#struktur' },
                 { name: 'Program Kerja', href: '#program' },
-                { name: 'Peta Wilayah', href: '#peta-wilayah' }
+                { name: 'Peta Wilayah', href: '#peta-wilayah' },
+                { name: 'Akses Admin', href: '/login', isRouterLink: true }
               ].map((link) => (
                 <li key={link.name}>
-                  <a
-                    href={link.href}
-                    className="text-slate-400 hover:text-brand-blue transition-colors duration-300 text-sm font-semibold flex items-center gap-1 group"
-                  >
-                    <span className="w-1.5 h-1.5 bg-slate-800 group-hover:bg-brand-blue rounded-full transition-colors" />
-                    {link.name}
-                  </a>
+                  {link.isRouterLink ? (
+                    <Link
+                      to={link.href}
+                      className="text-slate-400 hover:text-brand-blue transition-colors duration-300 text-sm font-semibold flex items-center gap-1 group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-slate-800 group-hover:bg-brand-blue rounded-full transition-colors" />
+                      {link.name}
+                    </Link>
+                  ) : (
+                    <a
+                      href={link.href}
+                      className="text-slate-400 hover:text-brand-blue transition-colors duration-300 text-sm font-semibold flex items-center gap-1 group"
+                    >
+                      <span className="w-1.5 h-1.5 bg-slate-800 group-hover:bg-brand-blue rounded-full transition-colors" />
+                      {link.name}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>
@@ -135,8 +138,8 @@ export default function Footer() {
             <div className="space-y-4">
               <div className="flex items-center gap-2 text-slate-400 text-xs">
                 <Mail className="w-4 h-4 text-brand-blue" />
-                <a href="mailto:info@bestfive.org" className="hover:text-brand-blue transition-colors font-semibold">
-                  info@bestfive.org
+                <a href="mailto:katarmabes05@gmail.com" className="hover:text-brand-blue transition-colors font-semibold">
+                  katarmabes05@gmail.com
                 </a>
               </div>
 

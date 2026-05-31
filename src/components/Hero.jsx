@@ -217,14 +217,14 @@ export default function Hero() {
             >
               <div className="aspect-[3/4] rounded-[1.4rem] overflow-hidden bg-slate-100">
                 <img
-                  src="https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=600&q=80"
-                  alt="Aktivitas Edukasi Pemuda"
+                  src="/images/carnaval.JPG"
+                  alt="Aktivitas Carnval"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="text-center mt-3">
-                <h4 className="text-slate-800 font-extrabold text-sm font-syne">Edukasi Digital</h4>
-                <p className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Workshop Seri</p>
+                <h4 className="text-slate-800 font-extrabold text-sm font-syne">Carnaval</h4>
+                <p className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Carnaval 17 Agustusan</p>
               </div>
             </motion.div>
 
@@ -247,7 +247,7 @@ export default function Hero() {
                 {/* Photo canvas */}
                 <div className="aspect-[4/3] rounded-[1.8rem] overflow-hidden bg-slate-50 relative group/photo">
                   <img
-                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=1000&q=80"
+                    src="/images/member-kartabestfive2.JPG"
                     alt="Karang Taruna Bestfive Big Family"
                     className="w-full h-full object-cover group-hover/photo:scale-102 transition-transform duration-700 ease-out"
                   />
@@ -292,14 +292,14 @@ export default function Hero() {
             >
               <div className="aspect-[3/4] rounded-[1.4rem] overflow-hidden bg-slate-100">
                 <img
-                  src="https://images.unsplash.com/photo-1511795409834-432f7b1728d2?auto=format&fit=crop&w=600&q=80"
-                  alt="Aktivitas Sosial Pemuda"
+                  src="/images/maulid.JPG"
+                  alt="Maulid Nabi"
                   className="w-full h-full object-cover"
                 />
               </div>
               <div className="text-center mt-3">
-                <h4 className="text-slate-800 font-extrabold text-sm font-syne">Aksi Sosial</h4>
-                <p className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Lingkungan & Warga</p>
+                <h4 className="text-slate-800 font-extrabold text-sm font-syne">Maulid Nabi</h4>
+                <p className="text-slate-400 text-[10px] uppercase font-bold tracking-wider">Rohani & Warga</p>
               </div>
             </motion.div>
 

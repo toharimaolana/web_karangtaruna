@@ -1,4 +1,6 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { getProfile } from '../services/profileService';
 
 const cardVariants = {
   hidden: { opacity: 0, y: 50 },
@@ -151,11 +153,38 @@ function ValueIcon({ color }) {
 }
 
 export default function VisiMisi() {
+  const [profile, setProfile] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+    async function load() {
+      const data = await getProfile();
+      if (isMounted) {
+        setProfile(data);
+        setLoading(false);
+      }
+    }
+    load();
+    return () => { isMounted = false; };
+  }, []);
+
+  if (loading) {
+    return (
+      <section id="visi-misi" className="relative py-24 md:py-32 bg-white overflow-hidden flex flex-col items-center justify-center min-h-[50vh]">
+        <div className="w-12 h-12 border-4 border-slate-200 border-t-brand-blue rounded-full animate-spin mb-4" />
+        <p className="text-slate-400 text-xs font-black tracking-widest uppercase animate-pulse font-syne">
+          Menyelaraskan Nilai Organisasi...
+        </p>
+      </section>
+    );
+  }
+
   const cards = [
     {
       icon: <VisionIcon color="#2563EB" />,
       title: 'Visi',
-      description: 'Menjadi wadah resmi kolaborasi internal pemuda RW 005 yang kreatif, solid, inovatif, dan berintegritas tinggi demi mewujudkan kontribusi nyata bagi masyarakat.',
+      description: profile.vision,
       themeClass: 'group-hover:border-brand-blue/30 group-hover:shadow-brand-blue/8 hover:y-[-8px]',
       bgIconClass: 'bg-brand-blue/10',
       badge: '🎯 UTAMA'
@@ -163,7 +192,7 @@ export default function VisiMisi() {
     {
       icon: <MissionIcon color="#EF4444" />,
       title: 'Misi',
-      description: 'Mengembangkan potensi pemuda melalui wadah edukasi kreatif, aksi kepedulian sosial yang nyata, serta mempererat kerukunan pemuda dan warga sekitar.',
+      description: profile.mission,
       themeClass: 'group-hover:border-brand-red/30 group-hover:shadow-brand-red/8 hover:y-[-8px]',
       bgIconClass: 'bg-brand-red/10',
       badge: '⚡ AKSI'
@@ -171,7 +200,7 @@ export default function VisiMisi() {
     {
       icon: <ValueIcon color="#F59E0B" />,
       title: 'Nilai',
-      description: 'Menjunjung tinggi asas kekeluargaan, keguyuban, solidaritas tanpa tapi, transparansi kerja organisasi, serta semangat berkolaborasi yang tak pernah padam.',
+      description: profile.values,
       themeClass: 'group-hover:border-brand-yellow/30 group-hover:shadow-brand-yellow/8 hover:y-[-8px]',
       bgIconClass: 'bg-brand-yellow/10',
       badge: '🔥 PRINSIP'
@@ -205,7 +234,7 @@ export default function VisiMisi() {
             Visi, Misi & <span className="text-brand-blue">Nilai Kami</span>
           </h2>
           <p className="mt-4 text-slate-500 max-w-2xl mx-auto text-base sm:text-lg leading-relaxed">
-            Landasan kokoh Karang Taruna Bestfive RW 005 dalam berkarya, berbakti, dan berdaya bersama masyarakat.
+            Landasan kokoh {profile.name} dalam berkarya, berbakti, dan berdaya bersama masyarakat.
           </p>
         </motion.div>
 

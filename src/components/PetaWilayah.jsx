@@ -109,7 +109,7 @@ export default function PetaWilayah() {
               <div className="w-full h-full rounded-[1.8rem] overflow-hidden relative">
                 <iframe
                   title="Peta RW 005 Pejaten Barat"
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.9863412534575!2d106.820468!3d-6.259254!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f21f75355e13%3A0xe54e60bf764ab6de!2sPejaten%20Barat%2C%20Pasar%20Minggu%2C%20South%20Jakarta%20City%2C%20Jakarta!5e0!3m2!1sen!2sid!4v1700000000000!5m2!1sen!2sid"
+                  src="https://www.google.com/maps/embed?pb=!1m16!1m12!1m3!1d247.92948252624865!2d106.81841136056886!3d-6.147925667331898!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!2m1!1ssd%20mangga%20besar%201!5e0!3m2!1sid!2sid!4v1780239935703!5m2!1sid!2sid"
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

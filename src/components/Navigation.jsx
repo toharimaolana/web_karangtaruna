@@ -1,6 +1,8 @@
 import { motion, useScroll, useMotionValueEvent, AnimatePresence } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import { Menu, X, MessageCircle } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const navLinks = [
   { name: 'Beranda', href: '#' },
@@ -10,6 +12,8 @@ const navLinks = [
 ];
 
 export default function Navigation() {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSection, setActiveSection] = useState('#');
@@ -21,6 +25,8 @@ export default function Navigation() {
 
   // Scroll Spy Logic
   useEffect(() => {
+    if (location.pathname !== '/') return;
+
     const handleScroll = () => {
       const scrollPosition = window.scrollY + 160; // Offset untuk kecocokan posisi scroll
 
@@ -39,7 +45,8 @@ export default function Navigation() {
       for (let i = sections.length - 1; i >= 0; i--) {
         const section = sections[i];
         if (section.element) {
-          const top = section.element.offsetTop;
+          const rect = section.element.getBoundingClientRect();
+          const top = rect.top + window.scrollY;
           if (scrollPosition >= top) {
             setActiveSection(section.id);
             break;
@@ -52,21 +59,79 @@ export default function Navigation() {
     handleScroll(); // Pemicu awal
 
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [location.pathname]);
+
+  // Handle redirect from another page or initial hash scroll
+  useEffect(() => {
+    if (location.pathname !== '/') return;
+
+    // 1. Check if we navigated here with state
+    if (location.state?.scrollToSection) {
+      const target = location.state.scrollToSection;
+      
+      // Clear location state to prevent repeating on refresh
+      navigate('/', { replace: true, state: {} });
+      
+      setTimeout(() => {
+        if (target === '#') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setActiveSection('#');
+        } else {
+          const element = document.querySelector(target);
+          if (element) {
+            const offset = 80;
+            const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+            const offsetPosition = elementPosition - offset;
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+            setActiveSection(target);
+          }
+        }
+      }, 150);
+      return;
+    }
+
+    // 2. Check if we have a hash in the URL on initial mount/load
+    if (window.location.hash) {
+      const hash = window.location.hash;
+      setTimeout(() => {
+        const element = document.querySelector(hash);
+        if (element) {
+          const offset = 80;
+          const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+          const offsetPosition = elementPosition - offset;
+          window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
+          setActiveSection(hash);
+        }
+      }, 300);
+    }
+  }, [location, navigate]);
 
   const scrollToSection = (href) => {
+    setIsMobileMenuOpen(false);
+
+    if (location.pathname !== '/') {
+      navigate('/', { state: { scrollToSection: href } });
+      return;
+    }
+
     if (href === '#') {
       window.scrollTo({ top: 0, behavior: 'smooth' });
       setActiveSection('#');
     } else {
       const element = document.querySelector(href);
       if (element) {
-        element.scrollIntoView({ behavior: 'smooth' });
+        const offset = 80;
+        const elementPosition = element.getBoundingClientRect().top + window.scrollY;
+        const offsetPosition = elementPosition - offset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
         setActiveSection(href);
       }
     }
-    setIsMobileMenuOpen(false);
   };
+
 
   return (
     <>

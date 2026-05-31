@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@studio-freight/lenis": "^1.0.42",
+    "@supabase/supabase-js": "^2.106.2",
     "@tailwindcss/vite": "^4.2.2",
     "animejs": "^4.3.6",
     "framer-motion": "^12.38.0",
@@ -19,6 +20,7 @@
     "postprocessing": "^6.39.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-router-dom": "^7.15.1",
     "tailwindcss": "^4.2.2",
     "three": "^0.170.0"
   },
